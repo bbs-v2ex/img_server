@@ -1,0 +1,6 @@
+Port = 8181
+IP = ""
+MaxSize = 2147483648
+ExecPath = ""
+SaveDir = "upload_img/"
+Field = "file"
