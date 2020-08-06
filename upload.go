@@ -25,12 +25,12 @@ func upload(w http.ResponseWriter, r *http.Request) {
 
 	//缓冲的大小 - 4M
 
-	r.ParseMultipartForm(1024 << 12)
+	//r.ParseMultipartForm(1024 << 12)
 	//数据大小的限制
-	r.Body = http.MaxBytesReader(w, r.Body, 1<<20)
+	r.Body = http.MaxBytesReader(w, r.Body, _con.MaxSize)
 	upfile, upFileInfo, err := r.FormFile(_con.Field)
 	if err != nil {
-		res.Message = "提取上传的文件失败"
+		res.Message = "提取上传的文件失败" + err.Error()
 		res.Code = 10002
 		w.Write(to(res))
 		return

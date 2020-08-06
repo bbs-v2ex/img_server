@@ -1,6 +1,7 @@
 Port = 8181
 IP = ""
-MaxSize = 2147483648
+UploadFileUrl = "/upload_img_123"
+MaxSize = 1048576
 ExecPath = ""
 SaveDir = "upload_img/"
 Field = "file"

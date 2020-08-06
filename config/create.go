@@ -30,12 +30,13 @@ func (conf SConfig) Dump() string {
 
 func CreateConfigFile() {
 	ctoml := SConfig{
-		Port:     8181,
-		IP:       "",
-		MaxSize:  2 << 30,
-		ExecPath: "",
-		SaveDir:  "upload_img/",
-		Field:    "file",
+		Port:          8181,
+		IP:            "",
+		MaxSize:       1 << 20,
+		ExecPath:      "",
+		SaveDir:       "upload_img/",
+		Field:         "file",
+		UploadFileUrl: "/upload_img_123",
 	}
 	var buf bytes.Buffer
 	toml.NewEncoder(&buf).Encode(ctoml)

@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 const (
@@ -44,14 +45,23 @@ func Server() {
 			log.Fatal("读取配置文件失败3333", err)
 		}
 	}
+	mux := http.NewServeMux()
 
-	http.HandleFunc("/upload", upload)
+	mux.HandleFunc(_con.UploadFileUrl, upload)
 
-	http.HandleFunc("/", outimg)
+	mux.HandleFunc("/", outimg)
 
 	loca_url := fmt.Sprintf("%s:%d", _con.IP, _con.Port)
 	fmt.Println(loca_url)
-	err := http.ListenAndServe(loca_url, nil) //设置监听的端口
+
+	server := http.Server{
+		Addr:         loca_url,        // 监听地址和端口
+		Handler:      mux,             // Handle
+		ReadTimeout:  5 * time.Second, // 读超时
+		WriteTimeout: 5 * time.Second, // 写超时
+	}
+
+	err := server.ListenAndServe() //设置监听的端口
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}

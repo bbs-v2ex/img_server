@@ -9,10 +9,11 @@ type SConfig struct {
 	//监听IP
 	IP string
 
-	//保存的文件夹位置
+	//接口地址
+	UploadFileUrl string
 
 	//允许文件最大值
-	MaxSize int
+	MaxSize int64
 
 	ExecPath string
 

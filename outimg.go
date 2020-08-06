@@ -59,10 +59,10 @@ func outimg(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//不能超过本来的大小
-	if _w > img.Bounds().Size().X {
+	if _w > img.Bounds().Size().X && _w != 0 {
 		_w = img.Bounds().Size().X
 	}
-	if _h > img.Bounds().Size().Y {
+	if _h > img.Bounds().Size().Y && _h != 0 {
 		_h = img.Bounds().Size().Y
 	}
 
