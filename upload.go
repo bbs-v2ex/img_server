@@ -15,6 +15,9 @@ import (
 
 // 处理/upload 逻辑
 func upload(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")             //允许访问所有域
+	w.Header().Add("Access-Control-Allow-Headers", "Content-Type") //header的类型
+
 	res := result{}
 	if r.Method != "POST" {
 		res.Message = "请求类型需要是 POST"

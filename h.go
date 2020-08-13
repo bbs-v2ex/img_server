@@ -14,8 +14,11 @@ func IsDir(filename string) (bool, error) {
 
 // IsFile is_file()
 func IsFile(filename string) bool {
-	_, err := os.Stat(filename)
+	f, err := os.Stat(filename)
 	if err != nil && os.IsNotExist(err) {
+		return false
+	}
+	if f.IsDir() {
 		return false
 	}
 	return true

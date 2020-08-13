@@ -6,22 +6,36 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"regexp"
 	"strconv"
 )
 
 func outimg(w http.ResponseWriter, r *http.Request) {
-	img_404 := []byte("Image resource does not exist")
-	if !regexp.MustCompile(`[0-9a-zA-Z]{32}`).MatchString(r.URL.Path) {
-		w.WriteHeader(404)
-		w.Write(img_404)
-		return
-	}
+
+	//运行访问存在得文件
+	//path := r.URL.Path
+
+	//if !regexp.MustCompile(`[0-9a-zA-Z]{32}`).MatchString(r.URL.Path) {
+
+	//}
 	_img_w := r.URL.Query().Get("w")
 	_w, _ := strconv.Atoi(_img_w)
 	_img_h := r.URL.Query().Get("h")
 	_h, _ := strconv.Atoi(_img_h)
-	file_url_name := _con.SaveDir + "/" + r.URL.Path + "/" + r.URL.Path
+	//file_url_name := _con.SaveDir + "/" + r.URL.Path
+	file_url_name := ""
+	for _, f_path := range []string{_con.SaveDir + "/" + r.URL.Path, _con.SaveDir + "/" + r.URL.Path + "/" + r.URL.Path} {
+		fmt.Println(f_path, IsFile(f_path))
+		if IsFile(f_path) {
+			file_url_name = f_path
+			break
+		}
+	}
+	if file_url_name == "" {
+		w.WriteHeader(404)
+		w.Write([]byte("Image resource does not exist"))
+		return
+	}
+
 	//如果是原文件则直接输出
 	if _w == 0 && _h == 0 {
 		file, err := os.Open(file_url_name)
