@@ -60,7 +60,6 @@ func Server() {
 		ReadTimeout:  5 * time.Second, // 读超时
 		WriteTimeout: 5 * time.Second, // 写超时
 	}
-
 	err := server.ListenAndServe() //设置监听的端口
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
